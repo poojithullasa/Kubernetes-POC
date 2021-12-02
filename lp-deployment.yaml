@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leave-planner-ui-deployment
+  namespace: leave-planner
+  labels:
+    app: leave-planner
+    type: ui-deployment
+spec:
+  template:
+    metadata:
+      name: leave-planner-ui
+      labels:
+        app: leave-planner
+        type: ui-pods
+    spec:
+      containers:
+      - name: leave-planner-ui-pod
+        image: repo.treescale.com/poojithullasa/leave-planner/leaveplanner-ui-test:latest
+        imagePullPolicy: Never
+  replicas: 2
+  selector:
+    matchLabels:
+      app: leave-planner
+      type: ui-pods
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leave-planner-backend-deployment
+  namespace: leave-planner
+  labels:
+    app: leave-planner
+    type: backend-deployment
+spec:
+  template:
+    metadata:
+      name: leave-planner-backend
+      labels:
+        app: leave-planner
+        type: backend-pods
+    spec:
+      containers:
+      - name: leave-planner-backend-pod
+        image: repo.treescale.com/poojithullasa/leave-planner/leaveplanner-backend-release:latest
+        imagePullPolicy: Never
+  replicas: 2
+  selector:
+    matchLabels:
+      app: leave-planner
+      type: backend-pods
+
+    
